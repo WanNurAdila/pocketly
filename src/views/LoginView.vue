@@ -34,7 +34,7 @@ function handleSubmit() {
   <div data-testid="screen-login" style="display:flex;height:100vh;overflow:hidden;">
 
     <!-- ─── Left brand panel ──────────────────────────────── -->
-    <div style="width:540px;flex-shrink:0;background:var(--ink);color:var(--paper);position:relative;overflow:hidden;padding:48px 44px;display:flex;flex-direction:column;">
+    <div class="login-brand" style="width:540px;flex-shrink:0;background:var(--ink);color:var(--paper);position:relative;overflow:hidden;padding:48px 44px;display:flex;flex-direction:column;">
 
       <!-- Top bar -->
       <div style="position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;">
@@ -76,7 +76,7 @@ function handleSubmit() {
     </div>
 
     <!-- ─── Right form panel ──────────────────────────────── -->
-    <div style="flex:1;padding:64px 80px;display:flex;flex-direction:column;position:relative;overflow-y:auto;">
+    <div class="login-form" style="flex:1;padding:64px 80px;display:flex;flex-direction:column;position:relative;overflow-y:auto;">
       <!-- floating decorations -->
       <div style="position:absolute;top:40px;right:40px;width:80px;height:80px;border-radius:50%;background:var(--butter);border:2px solid var(--ink);pointer-events:none;" />
       <div style="position:absolute;top:90px;right:100px;width:18px;height:18px;background:var(--ink);pointer-events:none;" />

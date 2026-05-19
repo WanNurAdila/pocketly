@@ -39,7 +39,7 @@ function handleClose() {
         data-testid="modal-delete-confirm"
         role="alertdialog"
         aria-labelledby="confirm-title"
-        style="width:460px;padding:28px;text-align:left;"
+        style="max-width:460px;padding:28px;text-align:left;"
       >
         <!-- Corner decoration — red warning circle -->
         <div style="position:absolute;top:-14px;left:-14px;width:36px;height:36px;background:var(--bad);border:2px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--paper);">

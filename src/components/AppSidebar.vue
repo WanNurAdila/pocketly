@@ -76,4 +76,23 @@ function handleLogout() {
       >Sign out</button>
     </div>
   </aside>
+
+  <!-- Mobile bottom navigation (visible only on small screens via CSS) -->
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a
+      v-for="item in items.filter(i => !i.disabled)"
+      :key="item.id"
+      href="#"
+      :class="{ active: active === item.id }"
+      :data-testid="`mobile-nav-${item.id}`"
+      @click.prevent="router.push(item.route)"
+    >
+      <AppIcon :name="item.icon" :size="20" />
+      {{ item.label }}
+    </a>
+    <a href="#" data-testid="mobile-nav-logout" @click.prevent="handleLogout">
+      <AppIcon name="x" :size="20" />
+      Sign out
+    </a>
+  </nav>
 </template>

@@ -188,7 +188,7 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
 </script>
 
 <template>
-  <div data-testid="screen-list" class="page" style="height:100vh;">
+  <div data-testid="screen-list" class="page">
     <AppSidebar active="list" />
 
     <div class="main">
@@ -206,7 +206,7 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
         <div class="row" style="gap:10px;margin-bottom:22px;flex-wrap:wrap;" data-testid="filter-bar">
 
           <!-- Search -->
-          <div style="position:relative;flex:0 0 300px;">
+          <div style="position:relative;flex:1 1 240px;min-width:180px;">
             <div style="position:absolute;left:14px;top:0;bottom:0;display:flex;align-items:center;color:var(--ink-mute);">
               <AppIcon name="search" :size="16" />
             </div>
@@ -247,6 +247,7 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
             <div v-if="catDropdownOpen"
               data-testid="dropdown-category"
               role="menu"
+              class="filter-dropdown"
               style="position:absolute;top:calc(100% + 10px);left:0;width:280px;background:var(--paper-2);border:2px solid var(--ink);border-radius:16px;box-shadow:6px 6px 0 0 var(--ink);padding:12px;z-index:50;">
               <!-- caret -->
               <div style="position:absolute;top:-10px;left:28px;width:16px;height:16px;background:var(--paper-2);border-left:2px solid var(--ink);border-top:2px solid var(--ink);transform:rotate(45deg);" />
@@ -311,6 +312,7 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
             <div v-if="dateDropdownOpen"
               data-testid="dropdown-date"
               role="menu"
+              class="filter-dropdown"
               style="position:absolute;top:calc(100% + 10px);left:0;width:340px;background:var(--paper-2);border:2px solid var(--ink);border-radius:16px;box-shadow:6px 6px 0 0 var(--ink);padding:16px;z-index:50;">
               <!-- caret -->
               <div style="position:absolute;top:-10px;left:36px;width:16px;height:16px;background:var(--paper-2);border-left:2px solid var(--ink);border-top:2px solid var(--ink);transform:rotate(45deg);" />
@@ -402,7 +404,7 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
 
         <!-- ── Transaction cards grid ── -->
         <div v-if="filtered.length > 0"
-          style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;"
+          class="tx-grid"
           data-testid="tx-grid">
           <TxCard v-for="tx in filtered" :key="tx.id" :tx="tx" />
         </div>

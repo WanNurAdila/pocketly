@@ -27,7 +27,7 @@ function shapeForCategory(id: string) {
 </script>
 
 <template>
-  <div data-testid="screen-home" class="page" style="height:100vh;">
+  <div data-testid="screen-home" class="page">
     <AppSidebar active="home" />
 
     <div class="main">
@@ -42,7 +42,7 @@ function shapeForCategory(id: string) {
 
       <div class="content">
         <!-- ── Hero summary band ── -->
-        <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:20px;margin-bottom:24px;">
+        <div class="home-hero-grid">
 
           <!-- Overall budget card -->
           <div class="card" style="padding:24px;position:relative;overflow:hidden;" data-testid="card-month-summary">
@@ -111,7 +111,7 @@ function shapeForCategory(id: string) {
         </div>
 
         <div class="card" style="padding:8px;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;column-gap:0;">
+          <div class="home-cat-grid">
             <div
               v-for="(c, i) in store.budgetCategories"
               :key="c.id"

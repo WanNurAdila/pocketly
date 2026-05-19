@@ -49,7 +49,7 @@ function friendlyDate(d: string) {
     <button class="btn btn-sm" @click="router.push('/transactions')">← Back to list</button>
   </div>
 
-  <div v-else data-testid="screen-detail" class="page" style="height:100vh;">
+  <div v-else data-testid="screen-detail" class="page">
     <AppSidebar active="list" />
 
     <div class="main">
@@ -79,7 +79,7 @@ function friendlyDate(d: string) {
         </div>
       </header>
 
-      <div class="content" style="display:grid;grid-template-columns:1.5fr 1fr;gap:24px;overflow-y:auto;">
+      <div class="content detail-grid">
 
         <!-- ── Main detail card ── -->
         <div class="card" style="padding:28px;position:relative;overflow:hidden;" data-testid="detail-main">
