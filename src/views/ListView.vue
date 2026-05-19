@@ -58,6 +58,9 @@ function nextMonth() {
 function isoDay(d: number) {
   return `${calYear.value}-${String(calMonth.value + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
 }
+function cellISO(d: number | null): string {
+  return d !== null ? isoDay(d) : ''
+}
 
 function selectDay(d: number) {
   const iso = isoDay(d)
@@ -118,7 +121,7 @@ function dayClass(d: number) {
 }
 
 function parseISO(iso: string) {
-  const [y, m, d] = iso.split('-')
+  const [y = '', m = '', d = ''] = iso.split('-')
   return { year: y, month: monthNames[parseInt(m) - 1] ?? '', day: parseInt(d) }
 }
 
@@ -350,11 +353,11 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
                     :data-testid="`cal-day-${d}`"
                     :style="{
                       height:'32px',width:'100%',
-                      border: (d === rangeStart || d === rangeEnd) ? '2px solid var(--ink)' : '1.5px solid transparent',
-                      background: (d === rangeStart || d === rangeEnd) ? 'var(--ink)'
-                                : (rangeStart && rangeEnd && d > rangeStart && d < rangeEnd) ? 'var(--butter)'
+                      border: (cellISO(d) === rangeStart || cellISO(d) === rangeEnd) ? '2px solid var(--ink)' : '1.5px solid transparent',
+                      background: (cellISO(d) === rangeStart || cellISO(d) === rangeEnd) ? 'var(--ink)'
+                                : (rangeStart && rangeEnd && cellISO(d) > rangeStart && cellISO(d) < rangeEnd) ? 'var(--butter)'
                                 : 'transparent',
-                      color: (d === rangeStart || d === rangeEnd) ? 'var(--paper)' : 'var(--ink)',
+                      color: (cellISO(d) === rangeStart || cellISO(d) === rangeEnd) ? 'var(--paper)' : 'var(--ink)',
                       borderRadius: '8px',
                       fontFamily: 'var(--font-mono)',
                       fontSize:'12px',fontWeight:'500',cursor:'pointer',
