@@ -60,7 +60,7 @@ jobs:
                 --variable BASE_URL:https://${{ steps.vercel_preview.outputs.preview_url }} \
                 --variable HEADLESS:True \
                 --include smoke \
-                tests/
+                robot-tests/suites/
 
       - name: Upload test results
         if: always()
