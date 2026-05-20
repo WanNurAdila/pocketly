@@ -52,6 +52,12 @@ __screenshots__/
 /browser/
 **/pw-output/
 
+# Robot Framework / Playwright output
+log.html
+output.xml
+playwright-log.txt
+report.html
+
 # Python
 __pycache__/
 *.pyc

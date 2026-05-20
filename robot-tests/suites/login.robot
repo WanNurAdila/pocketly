@@ -26,7 +26,6 @@ Verify Login Functionality Works Correctly
     [Tags]             smoke
     New Page           ${BASE_URL}
 
-    Get Element  text=Welcome back.
     Fill Text    id=input-email  ${EMAIL}
     Fill Text    id=input-password  ${PASSWORD}
     Click        "Sign in"
@@ -37,7 +36,6 @@ Verify Login Fails with Incorrect Credentials
     [Tags]             smoke
     New Page           ${BASE_URL}
 
-    Get Element  text=Welcome back.
     Fill Text    id=input-email  ${EMAIL}
     Fill Text    id=input-password  wwww123
     Click        "Sign in"
