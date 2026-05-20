@@ -8,8 +8,8 @@ Test Teardown     Close Context
 *** Variables ***
 ${BASE_URL}       https://pocketly-budgeting.vercel.app
 ${EMAIL}          demo@pocketly.app
-${PASSWORD}      pocket1234
-${BYPASS_SECRET}  ${ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }
+${PASSWORD}       pocket1234
+${BYPASS_SECRET}  ${EMPTY}  
 
 *** Test Cases ***
 Verify Website Loads Successfully
