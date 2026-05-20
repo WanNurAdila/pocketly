@@ -38,7 +38,7 @@ Verify Login Fails with Incorrect Credentials
 
     Get Element  text=Welcome back.
     Fill Text    id=input-email  ${EMAIL}
-    Fill Text    id=input-password  wwww123
+    Fill Text    id=input-password  wrongPassword
     Click        "Sign in"
     Wait For Elements State  text=Incorrect email or password. Try again. >> visible=true  visible
 
