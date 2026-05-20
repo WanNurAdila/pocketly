@@ -45,12 +45,12 @@ const cornerRadius = computed(() => {
       </span>
     </div>
 
-    <div style="margin-top:12px;font-family:var(--font-display);font-weight:700;font-size:18px;letter-spacing:-0.01em;line-height:1.15;"
+    <p style="margin-top:12px;font-family:var(--font-display);font-weight:700;font-size:18px;letter-spacing:-0.01em;line-height:1.15;"
       :data-testid="`tx-card-${tx.id}-merchant`"
       class="truncate">
       {{ tx.merchant }}
-    </div>
-    <div style="font-size:12px;color:var(--ink-mute);margin-top:2px;">{{ tx.method }}</div>
+    </p>
+    <p style="font-size:12px;color:var(--ink-mute);margin-top:2px;">{{ tx.method }}</p>
 
     <div style="margin-top:auto;">
       <div class="row-between" style="margin-top:14px;">

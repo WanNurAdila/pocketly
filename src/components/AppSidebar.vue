@@ -58,13 +58,13 @@ function handleLogout() {
     <div style="margin-top:auto;position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;">
       <!-- Balance card -->
       <div style="padding:16px;border-radius:16px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);">
-        <div class="label-xs" style="color:var(--paper);opacity:0.6;">May balance</div>
-        <div style="font-family:var(--font-display);font-size:26px;margin-top:4px;">
+        <p class="label-xs" style="color:var(--paper);opacity:0.6;">May balance</p>
+        <p style="font-family:var(--font-display);font-size:26px;margin-top:4px;">
           ${{ balWhole }}.<span style="opacity:0.6;">{{ balCents }}</span>
-        </div>
-        <div style="font-family:var(--font-mono);font-size:11px;opacity:0.7;margin-top:2px;">
+        </p>
+        <p style="font-family:var(--font-mono);font-size:11px;opacity:0.7;margin-top:2px;">
           {{ txStore.transactions.length }} transactions
-        </div>
+        </p>
       </div>
 
       <!-- Logout -->

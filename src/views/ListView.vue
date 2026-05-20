@@ -253,7 +253,7 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
               <div style="position:absolute;top:-10px;left:28px;width:16px;height:16px;background:var(--paper-2);border-left:2px solid var(--ink);border-top:2px solid var(--ink);transform:rotate(45deg);" />
 
               <div class="row-between" style="padding:4px 6px 10px;">
-                <div class="label-xs">Filter by category</div>
+                <p class="label-xs">Filter by category</p>
                 <button class="btn btn-sm btn-ghost" data-testid="btn-cat-clear"
                   style="height:24px;padding:0 8px;font-size:11px;" @click="clearCategories">Clear</button>
               </div>
@@ -285,7 +285,7 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
                     background: c.color === 'ink' ? 'var(--ink)' : `var(--${c.color})`,
                     border:'1.5px solid var(--ink)',borderRadius:'4px',flexShrink:'0',
                   }" />
-                  <div style="font-size:13px;font-weight:500;flex:1;">{{ c.label }}</div>
+                  <span style="font-size:13px;font-weight:500;flex:1;">{{ c.label }}</span>
                 </label>
               </div>
 
@@ -331,9 +331,9 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
                   style="width:28px;height:28px;" @click.stop="prevMonth">
                   <AppIcon name="chevron-left" :size="14" />
                 </button>
-                <div style="font-family:var(--font-display);font-weight:700;font-size:16px;" data-testid="cal-month">
+                <p style="font-family:var(--font-display);font-weight:700;font-size:16px;" data-testid="cal-month">
                   {{ monthNames[calMonth] }} {{ calYear }}
-                </div>
+                </p>
                 <button class="btn btn-icon btn-ghost" data-testid="cal-next"
                   style="width:28px;height:28px;transform:rotate(180deg);" @click.stop="nextMonth">
                   <AppIcon name="chevron-left" :size="14" />
@@ -342,10 +342,10 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
 
               <!-- Weekday headers -->
               <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;">
-                <div v-for="d in ['S','M','T','W','T','F','S']" :key="d"
+                <span v-for="d in ['S','M','T','W','T','F','S']" :key="d"
                   class="mono" style="text-align:center;font-size:10px;color:var(--ink-mute);letter-spacing:0.08em;padding:4px 0;">
                   {{ d }}
-                </div>
+                </span>
               </div>
 
               <!-- Days grid -->
@@ -373,16 +373,16 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
               <div style="margin-top:14px;padding:10px;border:1.5px solid var(--ink);border-radius:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px;background:var(--cream);"
                 data-testid="date-range-readout">
                 <div>
-                  <div class="label-xs" style="font-size:9px;">From</div>
-                  <div class="mono" style="font-size:13px;font-weight:600;" data-testid="range-from">
+                  <p class="label-xs" style="font-size:9px;">From</p>
+                  <p class="mono" style="font-size:13px;font-weight:600;" data-testid="range-from">
                     {{ rangeFromLabel }}
-                  </div>
+                  </p>
                 </div>
                 <div>
-                  <div class="label-xs" style="font-size:9px;">To</div>
-                  <div class="mono" style="font-size:13px;font-weight:600;" data-testid="range-to">
+                  <p class="label-xs" style="font-size:9px;">To</p>
+                  <p class="mono" style="font-size:13px;font-weight:600;" data-testid="range-to">
                     {{ rangeToLabel }}
-                  </div>
+                  </p>
                 </div>
               </div>
 
@@ -411,9 +411,9 @@ const incomeCount  = computed(() => store.transactions.filter(t => t.amount > 0)
 
         <!-- Empty state -->
         <div v-else style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 0;gap:16px;text-align:center;">
-          <div style="font-size:48px;">◌</div>
-          <div style="font-family:var(--font-display);font-size:22px;font-weight:700;">No transactions found</div>
-          <div style="color:var(--ink-mute);font-size:14px;">Try adjusting your search or filters.</div>
+          <p style="font-size:48px;">◌</p>
+          <h2 style="font-family:var(--font-display);font-size:22px;font-weight:700;">No transactions found</h2>
+          <p style="color:var(--ink-mute);font-size:14px;">Try adjusting your search or filters.</p>
           <button class="btn btn-sm" @click="searchQuery='';typeFilter='all';clearCategories();clearDate()">
             Clear all filters
           </button>

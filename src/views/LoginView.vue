@@ -39,7 +39,7 @@ function handleSubmit() {
       <!-- Top bar -->
       <div style="position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;">
         <PocketlyLogo :size="30" :dark="true" />
-        <div class="label-xs" style="color:var(--paper);opacity:0.6;">v 2.4 · demo</div>
+        <span class="label-xs" style="color:var(--paper);opacity:0.6;">v 2.4 · demo</span>
       </div>
 
       <!-- Geometric composition -->
@@ -55,19 +55,19 @@ function handleSubmit() {
 
       <!-- Headline zone -->
       <div style="position:relative;z-index:2;">
-        <div class="display" style="font-size:60px;line-height:0.92;color:var(--paper);">
+        <h2 class="display" style="font-size:60px;line-height:0.92;color:var(--paper);">
           Money,<br/>
           <span style="color:var(--butter);">shaped.</span>
-        </div>
-        <div style="margin-top:18px;font-size:15.5px;color:var(--paper);opacity:0.95;max-width:400px;line-height:1.55;">
+        </h2>
+        <p style="margin-top:18px;font-size:15.5px;color:var(--paper);opacity:0.95;max-width:400px;line-height:1.55;">
           A small, geometric budgeting tool. Track expenses, set ceilings,
           see where your month is going.
-        </div>
+        </p>
       </div>
 
       <!-- Footer -->
       <div style="margin-top:auto;padding-top:28px;position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;">
-        <div class="label-xs" style="color:var(--paper);opacity:0.55;">© 2026 · Built for QA practice</div>
+        <span class="label-xs" style="color:var(--paper);opacity:0.55;">© 2026 · Built for QA practice</span>
         <div class="row" style="gap:6px;">
           <span v-for="c in ['coral','mint','butter','sky']" :key="c"
             :style="{ width:'8px', height:'8px', background:`var(--${c})`, borderRadius:'50%' }" />
@@ -81,11 +81,11 @@ function handleSubmit() {
       <div style="position:absolute;top:40px;right:40px;width:80px;height:80px;border-radius:50%;background:var(--butter);border:2px solid var(--ink);pointer-events:none;" />
       <div style="position:absolute;top:90px;right:100px;width:18px;height:18px;background:var(--ink);pointer-events:none;" />
 
-      <div class="label-xs" data-testid="login-eyebrow">Sign in to your account</div>
-      <div class="display" style="font-size:44px;margin-top:8px;">Welcome back.</div>
-      <div style="color:var(--ink-mute);margin-top:8px;font-size:14px;">
+      <p class="label-xs" data-testid="login-eyebrow">Sign in to your account</p>
+      <h1 class="display" style="font-size:44px;margin-top:8px;">Welcome back.</h1>
+      <p style="color:var(--ink-mute);margin-top:8px;font-size:14px;">
         New here? <a href="#" data-testid="link-create-account" style="color:var(--ink);font-weight:600;">Create an account ›</a>
-      </div>
+      </p>
 
       <form style="margin-top:36px;display:flex;flex-direction:column;gap:18px;"
         data-testid="form-login"
@@ -120,11 +120,11 @@ function handleSubmit() {
               <AppIcon :name="showPass ? 'eye-off' : 'eye'" :size="18" />
             </button>
           </div>
-          <div v-if="hasError" data-testid="error-password"
+          <p v-if="hasError" data-testid="error-password"
             style="color:var(--bad);font-size:13px;margin-top:4px;display:flex;align-items:center;gap:6px;">
             <AppIcon name="x" :size="14" :stroke="2.5" />
             Incorrect email or password. Try again.
-          </div>
+          </p>
         </div>
 
         <!-- Remember + forgot -->
@@ -152,16 +152,16 @@ function handleSubmit() {
       <!-- Demo credentials -->
       <div class="card-flat" data-testid="demo-creds"
         style="margin-top:28px;padding:16px;background:var(--butter);">
-        <div class="label-xs" style="margin-bottom:6px;">Demo credentials</div>
+        <p class="label-xs" style="margin-bottom:6px;">Demo credentials</p>
         <div class="mono" style="font-size:13px;line-height:1.7;">
-          <div data-testid="demo-email"><strong>email</strong> · demo@pocketly.app</div>
-          <div data-testid="demo-password"><strong>pass&nbsp;</strong> · pocket1234</div>
+          <p data-testid="demo-email"><strong>email</strong> · demo@pocketly.app</p>
+          <p data-testid="demo-password"><strong>pass&nbsp;</strong> · pocket1234</p>
         </div>
       </div>
 
-      <div style="margin-top:auto;padding-top:24px;color:var(--ink-mute);font-size:12px;">
+      <p style="margin-top:auto;padding-top:24px;color:var(--ink-mute);font-size:12px;">
         © 2026 Pocketly · A demo for automation testing.
-      </div>
+      </p>
     </div>
   </div>
 </template>

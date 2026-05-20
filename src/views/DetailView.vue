@@ -44,8 +44,8 @@ function friendlyDate(d: string) {
 <template>
   <!-- Not found -->
   <div v-if="!tx" style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:16px;">
-    <div style="font-size:48px;">◌</div>
-    <div style="font-family:var(--font-display);font-size:24px;font-weight:700;">Transaction not found</div>
+    <p style="font-size:48px;">◌</p>
+    <h2 style="font-family:var(--font-display);font-size:24px;font-weight:700;">Transaction not found</h2>
     <button class="btn btn-sm" @click="router.push('/transactions')">← Back to list</button>
   </div>
 
@@ -56,15 +56,15 @@ function friendlyDate(d: string) {
       <!-- Topbar -->
       <header class="topbar" data-testid="topbar">
         <div>
-          <div class="label-xs" style="margin-bottom:4px;">
+          <p class="label-xs" style="margin-bottom:4px;">
             <a href="#" data-testid="bc-list" style="color:var(--ink-mute);"
               @click.prevent="router.push('/transactions')">Transactions</a>
             {{ ' › ' }}
             <span class="mono" data-testid="bc-tx-id">{{ tx.id }}</span>
-          </div>
-          <div style="font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:-0.02em;">
+          </p>
+          <h1 style="font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:-0.02em;">
             {{ tx.merchant }}
-          </div>
+          </h1>
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
           <button class="btn btn-sm" data-testid="btn-back" @click="router.push('/transactions')">
@@ -100,24 +100,24 @@ function friendlyDate(d: string) {
               </span>
             </div>
 
-            <div class="label-xs">Amount</div>
-            <div class="display" style="font-size:72px;line-height:1;margin-top:4px;">
+            <p class="label-xs">Amount</p>
+            <p class="display" style="font-size:72px;line-height:1;margin-top:4px;">
               <span class="mono" style="font-family:var(--font-display);" data-testid="detail-amount">
                 {{ isIncome ? '+' : '−' }}${{ Math.abs(tx.amount).toFixed(2) }}
               </span>
-            </div>
-            <div style="margin-top:8px;font-size:13px;color:var(--ink-mute);" data-testid="detail-date">
+            </p>
+            <p style="margin-top:8px;font-size:13px;color:var(--ink-mute);" data-testid="detail-date">
               {{ friendlyDate(tx.date) }}
-            </div>
+            </p>
 
             <div style="margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
               <div>
-                <div class="label-xs">Merchant</div>
-                <div style="font-weight:600;font-size:16px;margin-top:4px;" data-testid="detail-merchant">{{ tx.merchant }}</div>
-                <div style="font-size:12px;color:var(--ink-mute);margin-top:2px;">{{ tx.method }}</div>
+                <p class="label-xs">Merchant</p>
+                <p style="font-weight:600;font-size:16px;margin-top:4px;" data-testid="detail-merchant">{{ tx.merchant }}</p>
+                <p style="font-size:12px;color:var(--ink-mute);margin-top:2px;">{{ tx.method }}</p>
               </div>
               <div>
-                <div class="label-xs">Tags</div>
+                <p class="label-xs">Tags</p>
                 <div class="row" style="gap:6px;margin-top:6px;flex-wrap:wrap;" data-testid="detail-tags">
                   <span v-for="t in tx.tags" :key="t" class="chip" style="background:var(--butter);">#{{ t }}</span>
                   <span v-if="tx.tags.length === 0" style="color:var(--ink-mute);font-size:13px;">—</span>
@@ -126,11 +126,11 @@ function friendlyDate(d: string) {
             </div>
 
             <div style="margin-top:26px;" v-if="tx.note">
-              <div class="label-xs">Note</div>
-              <div style="margin-top:8px;padding:14px;background:var(--cream);border:1.5px solid var(--ink);border-radius:10px;font-size:14px;"
+              <p class="label-xs">Note</p>
+              <p style="margin-top:8px;padding:14px;background:var(--cream);border:1.5px solid var(--ink);border-radius:10px;font-size:14px;"
                 data-testid="detail-note">
                 {{ tx.note }}
-              </div>
+              </p>
             </div>
           </div>
         </div>
@@ -140,7 +140,7 @@ function friendlyDate(d: string) {
 
           <!-- Budget impact -->
           <div v-if="budgetCat" class="card" style="padding:20px;" data-testid="card-budget-impact">
-            <div class="label-xs">Budget impact · {{ budgetCat.label }}</div>
+            <p class="label-xs">Budget impact · {{ budgetCat.label }}</p>
             <div style="margin-top:12px;">
               <div class="row-between" style="margin-bottom:6px;">
                 <span class="mono" style="font-size:12px;">${{ budgetCat.spent }} / ${{ budgetCat.budget }}</span>
@@ -153,27 +153,27 @@ function friendlyDate(d: string) {
                 }" />
               </div>
             </div>
-            <div style="font-size:12px;color:var(--ink-mute);margin-top:10px;">
+            <p style="font-size:12px;color:var(--ink-mute);margin-top:10px;">
               ${{ budgetCat.budget - budgetCat.spent }} remaining for May
-            </div>
+            </p>
           </div>
 
           <!-- Receipt placeholder -->
           <div class="card" style="padding:20px;" data-testid="card-receipt">
             <div class="row-between">
-              <div class="label-xs">Receipt</div>
+              <p class="label-xs">Receipt</p>
               <button class="btn btn-sm btn-ghost" data-testid="btn-upload-receipt">
                 <AppIcon name="plus" :size="12" /> Attach
               </button>
             </div>
-            <div style="margin-top:12px;height:110px;border:1.5px dashed var(--ink);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--ink-mute);font-size:13px;background:repeating-linear-gradient(45deg,transparent 0 6px,rgba(22,20,15,0.04) 6px 12px);">
+            <p style="margin-top:12px;height:110px;border:1.5px dashed var(--ink);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--ink-mute);font-size:13px;background:repeating-linear-gradient(45deg,transparent 0 6px,rgba(22,20,15,0.04) 6px 12px);">
               No receipt attached
-            </div>
+            </p>
           </div>
 
           <!-- Activity log -->
           <div class="card" style="padding:20px;" data-testid="card-activity">
-            <div class="label-xs">Activity</div>
+            <p class="label-xs">Activity</p>
             <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px;">
               <div class="row" style="gap:10px;font-size:13px;">
                 <div style="width:8px;height:8px;border-radius:50%;background:var(--mint-deep);flex-shrink:0;" />

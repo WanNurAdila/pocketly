@@ -46,33 +46,33 @@ function handleClose() {
           <AppIcon name="trash" :size="16" :stroke="2.4" />
         </div>
 
-        <div class="label-xs" style="color:var(--bad);" data-testid="confirm-eyebrow">
+        <p class="label-xs" style="color:var(--bad);" data-testid="confirm-eyebrow">
           Destructive action
-        </div>
-        <div id="confirm-title" class="display" style="font-size:26px;margin-top:6px;line-height:1.1;"
+        </p>
+        <h2 id="confirm-title" class="display" style="font-size:26px;margin-top:6px;line-height:1.1;"
           data-testid="confirm-title">
           Delete this transaction?
-        </div>
-        <div style="margin-top:10px;font-size:14px;color:var(--ink-soft);line-height:1.55;"
+        </h2>
+        <p style="margin-top:10px;font-size:14px;color:var(--ink-soft);line-height:1.55;"
           data-testid="confirm-body">
           You're about to permanently delete <strong>{{ tx.merchant }}</strong>
           (<span class="mono">{{ tx.amount < 0 ? '−' : '+' }}${{ Math.abs(tx.amount).toFixed(2) }}</span>)
           from {{ tx.date }}. This can't be undone.
-        </div>
+        </p>
 
         <!-- Transaction preview row -->
         <div style="margin-top:18px;padding:12px 14px;background:var(--cream);border:1.5px solid var(--ink);border-radius:10px;display:flex;align-items:center;gap:12px;"
           data-testid="confirm-preview">
           <div style="width:30px;height:30px;background:var(--coral);border:2px solid var(--ink);border-radius:6px;flex-shrink:0;" />
           <div style="flex:1;min-width:0;">
-            <div class="truncate" style="font-weight:600;font-size:14px;">{{ tx.merchant }}</div>
-            <div class="mono" style="font-size:11px;color:var(--ink-mute);">{{ tx.id }} · {{ tx.date }}</div>
+            <p class="truncate" style="font-weight:600;font-size:14px;">{{ tx.merchant }}</p>
+            <p class="mono" style="font-size:11px;color:var(--ink-mute);">{{ tx.id }} · {{ tx.date }}</p>
           </div>
-          <div class="display" style="font-size:18px;flex-shrink:0;">
+          <p class="display" style="font-size:18px;flex-shrink:0;">
             <span class="mono" style="font-family:var(--font-display);">
               {{ tx.amount < 0 ? '−' : '+' }}${{ Math.abs(tx.amount).toFixed(2) }}
             </span>
-          </div>
+          </p>
         </div>
 
         <!-- Acknowledgement checkbox -->

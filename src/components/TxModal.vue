@@ -104,12 +104,12 @@ function deleteTx() {
         <!-- Header -->
         <div class="row-between" style="margin-bottom:18px;">
           <div>
-            <div class="label-xs" data-testid="modal-eyebrow">
+            <p class="label-xs" data-testid="modal-eyebrow">
               {{ mode === 'edit' ? 'Edit transaction' : 'New transaction' }}
-            </div>
-            <div id="modal-title" class="display" style="font-size:28px;margin-top:4px;" data-testid="modal-title">
+            </p>
+            <h2 id="modal-title" class="display" style="font-size:28px;margin-top:4px;" data-testid="modal-title">
               {{ mode === 'edit' ? `Edit · ${txId}` : 'Log an expense' }}
-            </div>
+            </h2>
           </div>
           <button class="btn btn-icon btn-ghost" data-testid="btn-close-modal" aria-label="Close" @click="emit('close')">
             <AppIcon name="x" :size="18" :stroke="2.2" />
