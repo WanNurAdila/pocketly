@@ -45,6 +45,19 @@ Verify Login Fails with Incorrect Credentials
 
 *** Keywords ***
 Open Browser To Home Page
+    Log To Console    BYPASS_SECRET length: ${{ len("${BYPASS_SECRET}") }}
     New Browser    chromium    headless=${HEADLESS}
-    New Context    extraHTTPHeaders={"x-vercel-protection-bypass": "${BYPASS_SECRET}", "x-vercel-set-bypass-cookie": "true"}
-    New Page       ${BASE_URL}
+    ${headers}=    Create Dictionary
+    ...    x-vercel-protection-bypass=${BYPASS_SECRET}
+    ...    x-vercel-set-bypass-cookie=true
+    New Context    extraHTTPHeaders=${headers}
+    
+    # CRITICAL: use the bypass via URL too — this sets the cookie
+    ${bypass_url}=    Catenate    SEPARATOR=
+    ...    ${BASE_URL}
+    ...    ?x-vercel-protection-bypass=
+    ...    ${BYPASS_SECRET}
+    ...    &x-vercel-set-bypass-cookie=samesitenone
+    Log To Console    Navigating to URL with bypass query params
+    New Page    ${bypass_url}
+    Sleep       3s
