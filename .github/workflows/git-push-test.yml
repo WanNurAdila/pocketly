@@ -1,4 +1,4 @@
-name: Test on Git Push 
+name: Test on Git Push
 
 on:
   push:
@@ -13,31 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get Vercel preview URL
-        id: vercel_preview
-        uses: zentered/vercel-preview-url@v1.4.0
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        with:
-          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
-
-      - name: Wait for deployment to be reachable
+      - name: Wait for site to be reachable
         run: |
-          URL="https://${{ steps.vercel_preview.outputs.preview_url }}"
+          URL="https://pocketly-budgeting.vercel.app"
           echo "Waiting for $URL to respond..."
           for i in {1..30}; do
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-              -H "x-vercel-protection-bypass: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}" \
-              "$URL")
-            # Anything in 2xx or 3xx is fine — deployment is responding
+            STATUS=$(curl -sL -o /dev/null -w "%{http_code}" "$URL")
             if [[ "$STATUS" =~ ^(2|3)[0-9][0-9]$ ]]; then
-              echo "✅ Deployment is live (HTTP $STATUS)"
+              echo "✅ Site is live (HTTP $STATUS)"
               exit 0
             fi
             echo "Attempt $i: HTTP $STATUS, retrying in 10s..."
             sleep 10
           done
-          echo "❌ Deployment did not become reachable"
+          echo "❌ Site did not become reachable"
           exit 1
 
       - name: Set up Python
@@ -55,11 +44,9 @@ jobs:
         run: rfbrowser init chromium
 
       - name: Run Robot Framework tests
-        env:
-          PREVIEW_URL: https://${{ steps.vercel_preview.outputs.preview_url }}
         run: |
           robot --outputdir results \
-                --variable "BASE_URL:${PREVIEW_URL}" \
+                --variable "BASE_URL:https://pocketly-budgeting.vercel.app" \
                 --variable HEADLESS:True \
                 --include smoke \
                 robot-tests/suites/
