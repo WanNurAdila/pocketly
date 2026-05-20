@@ -14,7 +14,7 @@ ${BYPASS_SECRET}  ${ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }
 *** Test Cases ***
 Verify Website Loads Successfully
     [Documentation]  Verifies that the website loads successfully and displays the expected content.
-    [Tags]           functional
+    [Tags]           smoke
     New Page         ${BASE_URL}
 
     Get Element  text=Sign in to your account
@@ -22,7 +22,7 @@ Verify Website Loads Successfully
 
 Verify Login Functionality Works Correctly
     [Documentation]    Verifies that the login functionality works correctly.
-    [Tags]             functional
+    [Tags]             smoke
     New Page           ${BASE_URL}
 
     Get Element  text=Welcome back.
@@ -33,7 +33,7 @@ Verify Login Functionality Works Correctly
 
 Verify Login Fails with Incorrect Credentials
     [Documentation]    Verifies that the login fails when incorrect credentials are provided.
-    [Tags]             functional
+    [Tags]             smoke
     New Page           ${BASE_URL}
 
     Get Element  text=Welcome back.
