@@ -6,16 +6,37 @@ Test Setup        New Context    viewport={'width': 1280, 'height': 720}
 Test Teardown     Close Context
 
 *** Variables ***
-${BASE_URL}       http://localhost:5173    # Default Vite local dev server port
+${BASE_URL}       https://pocketly-budgeting.vercel.app
+${EMAIL}          demo@pocketly.app
+${PASSWORD}      pocket1234
 
 *** Test Cases ***
-Verify App Home Page Loads Successfully
-    [Documentation]    Ensures the Vue landing page components render safely.
-    [Tags]             smoke
+Verify Website Loads Successfully
+    [Documentation]  Verifies that the website loads successfully and displays the expected content.
+    [Tags]           functional
+    New Page         ${BASE_URL}
+
+    Get Element  text=Sign in to your account
+    Get Element  text=Welcome back.
+
+Verify Login Functionality Works Correctly
+    [Documentation]    Verifies that the login functionality works correctly.
+    [Tags]             functional
     New Page           ${BASE_URL}
-    
-    # Assertions using Playwright-backed selectors
-    Get Text           h1 >> text=Welcome to Your Vue.js App
-    
-    # Taking a visual snapshot for the reports
-    Take Screenshot
+
+    Get Element  text=Welcome back.
+    Fill Text    id=input-email  ${EMAIL}
+    Fill Text    id=input-password  ${PASSWORD}
+    Click        "Sign in"
+    Wait For Elements State  text=Dashboard >> visible=true  visible
+
+Verify Login Fails with Incorrect Credentials
+    [Documentation]    Verifies that the login fails when incorrect credentials are provided.
+    [Tags]             functional
+    New Page           ${BASE_URL}
+
+    Get Element  text=Welcome back.
+    Fill Text    id=input-email  ${EMAIL}
+    Fill Text    id=input-password  wrongpassword
+    Click        "Sign in"
+    Wait For Elements State  text=Incorrect email or password. Try again. >> visible=true  visible

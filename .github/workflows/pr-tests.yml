@@ -1,0 +1,65 @@
+name: PR Tests
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  wait-for-vercel:
+    name: Wait for Vercel Preview
+    runs-on: ubuntu-latest
+    outputs:
+      preview_url: ${{ steps.waitForVercel.outputs.url }}
+    steps:
+      - name: Wait for Vercel deployment
+        id: waitForVercel
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 300       # 5 minutes
+          check_interval: 10     # poll every 10 seconds
+
+  robot-tests:
+    name: Robot Framework Tests
+    needs: wait-for-vercel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright browsers
+        run: rfbrowser init chromium
+
+      - name: Run Robot Framework tests
+        run: |
+          robot --outputdir results \
+                --variable BASE_URL:${{ needs.wait-for-vercel.outputs.preview_url }} \
+                --variable HEADLESS:True \
+                --include smoke \
+                tests/
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-results
+          path: results/
+          retention-days: 14
+
+      - name: Post results to PR
+        if: always()
+        uses: joonvena/robotframework-reporter-action@v2.4
+        with:
+          gh_access_token: ${{ secrets.GITHUB_TOKEN }}
+          report_path: 'results'

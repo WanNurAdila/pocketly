@@ -12,7 +12,8 @@
     "lint": "run-s lint:*",
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/"
+    "format": "prettier --write --experimental-cli src/",
+    "test:robot": "robot --outputdir robot-tests/results robot-tests/suites/"
   },
   "dependencies": {
     "pinia": "^3.0.4",

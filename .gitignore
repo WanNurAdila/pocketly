@@ -13,11 +13,14 @@ dist
 dist-ssr
 coverage
 *.local
+.env
+.env.*
+.secrets
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
@@ -40,3 +43,18 @@ __screenshots__/
 
 # Claude
 .claude
+
+/test-results/
+/reports/
+/robot-tests/results/
+
+# Browser library specific
+/browser/
+**/pw-output/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
