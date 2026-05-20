@@ -9,7 +9,7 @@ Test Teardown     Close Context
 ${BASE_URL}       https://pocketly-budgeting.vercel.app
 ${EMAIL}          demo@pocketly.app
 ${PASSWORD}       pocket1234
-${BYPASS_SECRET}  ${EMPTY}  
+${BYPASS_SECRET}  ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
 
 *** Test Cases ***
 Verify Website Loads Successfully
