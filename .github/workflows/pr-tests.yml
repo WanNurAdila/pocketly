@@ -6,27 +6,35 @@ on:
     branches: [main]
 
 jobs:
-  wait-for-vercel:
-    name: Wait for Vercel Preview
-    runs-on: ubuntu-latest
-    outputs:
-      preview_url: ${{ steps.waitForVercel.outputs.url }}
-    steps:
-      - name: Wait for Vercel deployment
-        id: waitForVercel
-        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          max_timeout: 300       # 5 minutes
-          check_interval: 10     # poll every 10 seconds
-
   robot-tests:
     name: Robot Framework Tests
-    needs: wait-for-vercel
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Get Vercel preview URL
+        id: vercel_preview
+        uses: zentered/vercel-preview-url@v1.4.0
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        with:
+          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Wait for deployment to be reachable
+        run: |
+          URL="https://${{ steps.vercel_preview.outputs.preview_url }}"
+          echo "Waiting for $URL to respond..."
+          for i in {1..30}; do
+            if curl -sSf "$URL" > /dev/null; then
+              echo "✅ Deployment is live"
+              exit 0
+            fi
+            echo "Attempt $i: not ready, retrying in 10s..."
+            sleep 10
+          done
+          echo "❌ Deployment did not become reachable"
+          exit 1
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -45,7 +53,7 @@ jobs:
       - name: Run Robot Framework tests
         run: |
           robot --outputdir results \
-                --variable BASE_URL:${{ needs.wait-for-vercel.outputs.preview_url }} \
+                --variable BASE_URL:https://${{ steps.vercel_preview.outputs.preview_url }} \
                 --variable HEADLESS:True \
                 --include smoke \
                 tests/
@@ -57,10 +65,3 @@ jobs:
           name: robot-results
           path: results/
           retention-days: 14
-
-      - name: Post results to PR
-        if: always()
-        uses: joonvena/robotframework-reporter-action@v2.4
-        with:
-          gh_access_token: ${{ secrets.GITHUB_TOKEN }}
-          report_path: 'results'
