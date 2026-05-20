@@ -1,15 +1,14 @@
 *** Settings ***
 Documentation     A basic end-to-end smoke test for our Vue application.
 Library           Browser
-Suite Setup       Open Browser To Home Page
+Suite Setup       New Browser    browser=chromium    headless=False
 Test Setup        New Context    viewport={'width': 1280, 'height': 720}
 Test Teardown     Close Context
 
 *** Variables ***
 ${BASE_URL}       https://pocketly-budgeting.vercel.app
 ${EMAIL}          demo@pocketly.app
-${PASSWORD}       pocket1234
-${BYPASS_SECRET}  ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+${PASSWORD}      pocket1234
 
 *** Test Cases ***
 Verify Website Loads Successfully
@@ -38,26 +37,6 @@ Verify Login Fails with Incorrect Credentials
 
     Get Element  text=Welcome back.
     Fill Text    id=input-email  ${EMAIL}
-    Fill Text    id=input-password  wrongPassword
+    Fill Text    id=input-password  wwww123
     Click        "Sign in"
     Wait For Elements State  text=Incorrect email or password. Try again. >> visible=true  visible
-
-
-*** Keywords ***
-Open Browser To Home Page
-    Log To Console    BYPASS_SECRET length: ${{ len("${BYPASS_SECRET}") }}
-    New Browser    chromium    headless=${HEADLESS}
-    ${headers}=    Create Dictionary
-    ...    x-vercel-protection-bypass=${BYPASS_SECRET}
-    ...    x-vercel-set-bypass-cookie=true
-    New Context    extraHTTPHeaders=${headers}
-    
-    # CRITICAL: use the bypass via URL too — this sets the cookie
-    ${bypass_url}=    Catenate    SEPARATOR=
-    ...    ${BASE_URL}
-    ...    ?x-vercel-protection-bypass=
-    ...    ${BYPASS_SECRET}
-    ...    &x-vercel-set-bypass-cookie=samesitenone
-    Log To Console    Navigating to URL with bypass query params
-    New Page    ${bypass_url}
-    Sleep       3s
