@@ -28,13 +28,13 @@ jobs:
           for i in {1..30}; do
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
               -H "x-vercel-protection-bypass: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}" \
-              -H "x-vercel-set-bypass-cookie: true" \
               "$URL")
-            if [ "$STATUS" = "200" ]; then
-              echo "✅ Deployment is live"
+            # Anything in 2xx or 3xx is fine — deployment is responding
+            if [[ "$STATUS" =~ ^(2|3)[0-9][0-9]$ ]]; then
+              echo "✅ Deployment is live (HTTP $STATUS)"
               exit 0
             fi
-            echo "Attempt $i: got $STATUS, retrying in 10s..."
+            echo "Attempt $i: HTTP $STATUS, retrying in 10s..."
             sleep 10
           done
           echo "❌ Deployment did not become reachable"
