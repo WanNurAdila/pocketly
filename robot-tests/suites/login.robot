@@ -30,7 +30,7 @@ Verify Login Functionality Works Correctly
     Fill Text    id=input-email  ${EMAIL}
     Fill Text    id=input-password  ${PASSWORD}
     Click        "Sign in"
-    Wait For Elements State  text=Dashboard  visible
+    Wait For Elements State  [data-testid="nav-home"]  visible    timeout=10s
 
 Verify Login Fails with Incorrect Credentials
     [Documentation]    Verifies that the login fails when incorrect credentials are provided.
