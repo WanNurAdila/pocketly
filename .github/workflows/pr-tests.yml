@@ -54,10 +54,28 @@ jobs:
       - name: Install Playwright browsers
         run: rfbrowser init chromium
 
-      - name: Run Robot Framework tests
+      - name: Debug — verify bypass secret flow
+        env:
+          BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
+          if [ -z "$BYPASS_SECRET" ]; then
+            echo "❌ BYPASS_SECRET is empty — secret is missing or misnamed in GitHub"
+            exit 1
+          fi
+          echo "✅ BYPASS_SECRET is set"
+          echo "Length: ${#BYPASS_SECRET}"
+          echo "First 4 chars: ${BYPASS_SECRET:0:4}"
+          echo "Last 4 chars: ${BYPASS_SECRET: -4}"
+
+      - name: Run Robot Framework tests
+        env:
+          BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+          PREVIEW_URL: https://${{ steps.vercel_preview.outputs.preview_url }}
+        run: |
+          echo "About to run robot with BYPASS_SECRET length: ${#BYPASS_SECRET}"
           robot --outputdir results \
-                --variable BASE_URL:https://${{ steps.vercel_preview.outputs.preview_url }} \
+                --variable "BASE_URL:${PREVIEW_URL}" \
+                --variable "BYPASS_SECRET:${BYPASS_SECRET}" \
                 --variable HEADLESS:True \
                 --include smoke \
                 robot-tests/suites/
