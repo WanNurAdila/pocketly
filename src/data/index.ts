@@ -17,8 +17,17 @@ export interface Category {
   budget: number
 }
 
-export const VALID_EMAIL    = 'demo@pocketly.app'
-export const VALID_PASSWORD = 'pocket1234'
+export interface Credential {
+  email: string
+  password: string
+  displayName: string
+}
+
+export const CREDENTIALS: Credential[] = [
+  { email: 'demo@pocketly.app',   password: 'pocket1234', displayName: 'Demo'   },
+  { email: 'jordan@pocketly.app', password: 'jordan1234', displayName: 'Jordan' },
+  { email: 'leah@pocketly.app',   password: 'leah1234',   displayName: 'Leah'   },
+]
 
 export const SEED_TX: Transaction[] = [
   { id: 'tx_001', date: '2026-05-18', merchant: 'Blue Bottle Coffee',     category: 'Food & Drink',   amount: -6.50,    type: 'expense', note: 'Morning oat latte',   method: 'Visa •• 4821', tags: ['coffee']  },

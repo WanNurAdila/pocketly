@@ -6,9 +6,11 @@ import AppTopbar from '@/components/AppTopbar.vue'
 import AppIcon from '@/components/AppIcon.vue'
 import TxModal from '@/components/TxModal.vue'
 import { useTransactionsStore } from '@/stores/transactions'
+import { useAuthStore } from '@/stores/auth'
 
 const router    = useRouter()
 const store     = useTransactionsStore()
+const authStore = useAuthStore()
 const modalOpen = ref(false)
 
 const pct = computed(() =>
@@ -32,7 +34,7 @@ function shapeForCategory(id: string) {
 
     <div class="main">
       <AppTopbar
-        title="Hello, Jordan."
+        :title="`Hello, ${authStore.displayName}.`"
         subtitle="Here's where your money is sitting in May."
       >
         <button class="btn btn-sm btn-coral" data-testid="btn-add-tx" @click="modalOpen = true">
