@@ -26,11 +26,15 @@ jobs:
           URL="https://${{ steps.vercel_preview.outputs.preview_url }}"
           echo "Waiting for $URL to respond..."
           for i in {1..30}; do
-            if curl -sSf "$URL" > /dev/null; then
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+              -H "x-vercel-protection-bypass: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}" \
+              -H "x-vercel-set-bypass-cookie: true" \
+              "$URL")
+            if [ "$STATUS" = "200" ]; then
               echo "✅ Deployment is live"
               exit 0
             fi
-            echo "Attempt $i: not ready, retrying in 10s..."
+            echo "Attempt $i: got $STATUS, retrying in 10s..."
             sleep 10
           done
           echo "❌ Deployment did not become reachable"

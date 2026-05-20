@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     A basic end-to-end smoke test for our Vue application.
 Library           Browser
-Suite Setup       New Browser    browser=chromium    headless=False
+Suite Setup       Open Browser To Home Page
 Test Setup        New Context    viewport={'width': 1280, 'height': 720}
 Test Teardown     Close Context
 
@@ -9,6 +9,7 @@ Test Teardown     Close Context
 ${BASE_URL}       https://pocketly-budgeting.vercel.app
 ${EMAIL}          demo@pocketly.app
 ${PASSWORD}      pocket1234
+${BYPASS_SECRET}  ${ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }
 
 *** Test Cases ***
 Verify Website Loads Successfully
@@ -40,3 +41,10 @@ Verify Login Fails with Incorrect Credentials
     Fill Text    id=input-password  wwww123
     Click        "Sign in"
     Wait For Elements State  text=Incorrect email or password. Try again. >> visible=true  visible
+
+
+*** Keywords ***
+Open Browser To Home Page
+    New Browser    chromium    headless=${HEADLESS}
+    New Context    extraHTTPHeaders={"x-vercel-protection-bypass": "${BYPASS_SECRET}", "x-vercel-set-bypass-cookie": "true"}
+    New Page       ${BASE_URL}
