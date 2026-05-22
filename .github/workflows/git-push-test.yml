@@ -2,6 +2,7 @@ name: Test on Git Push
 
 on:
   push:
+    branches: [robot-automated-testing, main]
   pull_request:
     branches: [main]
 
