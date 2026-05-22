@@ -40,3 +40,29 @@ __screenshots__/
 
 # Claude
 .claude
+
+/test-results/
+/reports/
+/robot-tests/results/
+
+# Browser library specific
+/browser/
+**/pw-output/
+
+# Robot Framework / Playwright output
+log.html
+output.xml
+playwright-log.txt
+report.html
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
