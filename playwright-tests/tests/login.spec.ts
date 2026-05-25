@@ -1,27 +1,17 @@
 import test, { expect } from '@playwright/test'
+import { login } from './helpers/auth'
 
-test.describe('Login Tests', () => {
+test.describe('Authentication', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://pocketly-budgeting.vercel.app')
+    await page.goto(process.env.BASE_URL_POCKETLY!)
   })
 
-  test('Login test', async ({ page }) => {
-    await page.goto('https://pocketly-budgeting.vercel.app')
-
-    // Fill in the username and password fields
-    await page.getByTestId('input-email').fill('demo@pocketly.app')
-    await page.getByTestId('input-password').fill('pocket1234')
-
-    // Click the login button
-    await page.getByRole('button', { name: 'Sign in' }).click()
-
-    // Expect to be redirected to the dashboard
-    await expect(page).toHaveURL('https://pocketly-budgeting.vercel.app/home')
+  test('user can log in with valid credentials', async ({ page }) => {
+    await login(page)
+    await expect(page).toHaveURL(`${process.env.BASE_URL_POCKETLY}/home`)
   })
 
-  test('Login with invalid credentials', async ({ page }) => {
-    await page.goto('https://pocketly-budgeting.vercel.app')
-
+  test('user sees error message with invalid credentials', async ({ page }) => {
     // Fill in the username and password fields with invalid credentials
     await page.getByTestId('input-email').fill('wrongEmail@example.com')
     await page.getByTestId('input-password').fill('wrongPassword')
@@ -31,5 +21,12 @@ test.describe('Login Tests', () => {
 
     // Expect to see an error message
     await expect(page.getByText('Incorrect email or password. Try again.')).toBeVisible()
+  })
+
+  test('login get by label', async ({ page }) => {
+    await page.getByLabel('Email').fill(process.env.TEST_EMAIL_POCKETLY!)
+    await page.getByLabel('Password').fill(process.env.TEST_PASSWORD_POCKETLY!)
+    await page.getByRole('button', { name: 'Sign in' }).click()
+    await expect(page).toHaveURL(`${process.env.BASE_URL_POCKETLY}/home`)
   })
 })
