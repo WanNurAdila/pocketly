@@ -13,6 +13,7 @@
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
+    "test:transaction": "robot --outputdir robot-tests/results robot-tests/suites/transaction.robot",
     "test:robot": "robot --outputdir robot-tests/results robot-tests/suites/"
   },
   "dependencies": {
