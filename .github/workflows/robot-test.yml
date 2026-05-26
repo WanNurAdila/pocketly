@@ -1,4 +1,4 @@
-name: Test on Git Push
+name: Test Robot Framework on Push
 
 on:
   push:
